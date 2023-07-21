@@ -6,18 +6,18 @@ import (
 	"strconv"
 )
 
-var peoples = []personEntity.Person{}
+var people = []personEntity.Person{}
 
 // Populate database
 func init() {
 	for i := 0; i < 10; i++ {
 		person := personEntity.NewPersonBuilder("name"+strconv.Itoa(i), "cpf"+strconv.Itoa(i)).WithBirthday("birthday" + strconv.Itoa(i)).WithGenre("genre" + strconv.Itoa(i)).Build()
-		peoples = append(peoples, *person)
+		people = append(people, *person)
 	}
 }
 
 func FindByName(name string) (personEntity.Person, error) {
-	for _, p := range peoples {
+	for _, p := range people {
 		if p.GetName() == name {
 			return p, nil
 		}
@@ -26,7 +26,7 @@ func FindByName(name string) (personEntity.Person, error) {
 }
 
 func FindByCpf(cpf string) (personEntity.Person, error) {
-	for _, p := range peoples {
+	for _, p := range people {
 		if p.GetCpf() == cpf {
 			return p, nil
 		}
