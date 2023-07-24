@@ -2,8 +2,10 @@ package personEntity
 
 import (
 	"encoding/json"
+	"errors"
 	"math"
 	addressEntity "projetoGo/entity/address"
+	animalEntity "projetoGo/entity/animal"
 	"time"
 )
 
@@ -14,6 +16,7 @@ type Person struct {
 	genre    string
 	cpf      string
 	address  addressEntity.Address
+	animals  []*animalEntity.Animal
 }
 
 func (p *Person) GetAdress() *addressEntity.Address {
@@ -32,10 +35,23 @@ func (p *Person) BirthdayIsgreaterThan(birthday string) bool {
 	return p.birthday > birthday
 }
 
-func (p *Person) changeAdress(adress *addressEntity.Address) (err error) {
-	err = nil
+func (p *Person) changeAdress(adress *addressEntity.Address) {
 	p.address = *adress
-	return
+}
+
+func (p *Person) AdoptAnimal(animal *animalEntity.Animal) {
+	p.animals = append(p.animals, animal)
+}
+
+func (p *Person) DonateAnimal(animalToRemove *animalEntity.Animal) error {
+	for index, animal := range p.animals {
+		if animal == animalToRemove {
+			p.animals = append(p.animals[:index], p.animals[index+1:]...)
+			return nil
+		}
+	}
+
+	return errors.New("DonateAnimal() - Animal not found")
 }
 
 func (p *Person) isChild() (bool, error) {

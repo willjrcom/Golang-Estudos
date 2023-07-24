@@ -1,13 +1,9 @@
-package entity
+package animalEntity
 
-type animal struct {
+type Animal struct {
 	ID          int
 	name        string
 	class       string
 	isDangerous bool
 	isDomestic  bool
-}
-
-func NewAnimal() *animal {
-	return new(animal)
 }
