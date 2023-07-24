@@ -33,3 +33,14 @@ func (p *personBuilder) WithAddress(address *addressEntity.Address) *personBuild
 func (p *personBuilder) Build() *Person {
 	return &p.person
 }
+
+func (p *personBuilder) BuildDto() *PersonDTO {
+	return &PersonDTO{
+		ID:       p.person.ID,
+		Name:     p.person.name,
+		Birthday: p.person.birthday,
+		Genre:    p.person.genre,
+		Cpf:      p.person.cpf,
+		Address:  p.person.address,
+	}
+}

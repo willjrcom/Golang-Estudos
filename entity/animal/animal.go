@@ -1,7 +1,7 @@
 package entity
 
 type animal struct {
-	id          int
+	ID          int
 	name        string
 	class       string
 	isDangerous bool
