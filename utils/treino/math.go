@@ -57,3 +57,7 @@ func (txt Textos) Less(i, j int) bool {
 func (txt Textos) Swap(i, j int) {
 	txt[i], txt[j] = txt[j], txt[i]
 }
+
+func floatToString(num float64) string {
+	return fmt.Sprintf("%.2f", num)
+}

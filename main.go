@@ -1,7 +1,9 @@
 package main
 
-import "projetoGo/usecases"
-
 func main() {
-	usecases.RegisterPerson()
+	//usecases.RegisterPerson()
+	//person := person_repository.FindAll()
+	//fmt.Print(person)
+	//initHttpServer()
+
 }

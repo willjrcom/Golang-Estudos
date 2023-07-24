@@ -3,17 +3,20 @@ package person_repository
 import (
 	"errors"
 	personEntity "projetoGo/entity/person"
-	"strconv"
 )
 
 var people = []personEntity.Person{}
 
 // Populate database
 func init() {
-	for i := 0; i < 10; i++ {
-		person := personEntity.NewPersonBuilder("name"+strconv.Itoa(i), "cpf"+strconv.Itoa(i)).WithBirthday("birthday" + strconv.Itoa(i)).WithGenre("genre" + strconv.Itoa(i)).Build()
-		people = append(people, *person)
-	}
+	people = append(people, *personEntity.NewPersonBuilder("William", "436.377.998-55").WithBirthday("26/01/2000").WithGenre("Masculino").Build())
+	people = append(people, *personEntity.NewPersonBuilder("Duda", "436.377.998-50").WithBirthday("24/10/2005").WithGenre("Feminino").Build())
+	people = append(people, *personEntity.NewPersonBuilder("Ana", "436.377.998-51").WithBirthday("20/10/2013").WithGenre("Feminino").Build())
+	people = append(people, *personEntity.NewPersonBuilder("Nicolas", "436.377.998-52").WithBirthday("08/10/2004").WithGenre("Masculino").Build())
+}
+
+func FindAll() []personEntity.Person {
+	return people
 }
 
 func FindByName(name string) (personEntity.Person, error) {
