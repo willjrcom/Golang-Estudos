@@ -1,11 +1,11 @@
 package addressEntity
 
 type AddressBuilder struct {
-	address Address
+	address *Address
 }
 
 func NewAddressBuilder() *AddressBuilder {
-	return &AddressBuilder{address: Address{}}
+	return &AddressBuilder{address: new(Address)}
 }
 
 func (b *AddressBuilder) WithStreet(street string) *AddressBuilder {
@@ -32,5 +32,5 @@ func (b *AddressBuilder) WithCountry(country string) *AddressBuilder {
 }
 
 func (b *AddressBuilder) Build() *Address {
-	return &b.address
+	return b.address
 }

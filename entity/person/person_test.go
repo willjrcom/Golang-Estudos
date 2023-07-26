@@ -1,20 +1,37 @@
 package personEntity
 
-import "testing"
+import (
+	"fmt"
+	addressEntity "projetoGo/entity/address"
+	"testing"
+	"time"
+)
 
 var people = []Person{
 	{
 		name:     "William",
-		birthday: "2000-01-26",
+		birthday: time.Date(2000, time.January, 26, 0, 0, 0, 0, time.UTC),
 	},
 	{
 		name:     "Duda",
-		birthday: "2005-10-24",
+		birthday: time.Date(2005, time.October, 24, 0, 0, 0, 0, time.UTC),
 	},
 	{
 		name:     "Ana",
-		birthday: "2013-10-20",
+		birthday: time.Date(2013, time.October, 20, 0, 0, 0, 0, time.UTC),
 	},
+}
+
+func TestNameValid(t *testing.T) {
+	address := addressEntity.NewAddressBuilder().WithStreet("Rua Piedade").WithNumber(226).WithCity("Sorocaba").WithState("SP").WithCountry("BR").Build()
+	person, err := NewPersonBuilder("William", "436.377.998-55").WithAddress(address).Build()
+
+	fmt.Println(person)
+
+	if err != nil {
+		fmt.Println(err)
+		t.Errorf(err[0].Error())
+	}
 }
 
 func TestIsChild(t *testing.T) {

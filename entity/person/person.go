@@ -11,16 +11,16 @@ import (
 
 type Person struct {
 	ID       string
-	name     string
-	birthday string
-	genre    string
-	cpf      string
-	address  addressEntity.Address
+	name     string                 `validate:"required,min=5"`
+	birthday time.Time              `validate:"required"`
+	genre    string                 `validate:"required"`
+	cpf      string                 `validate:"required,cpf"`
+	address  *addressEntity.Address `validate:"required"`
 	animals  []*animalEntity.Animal
 }
 
-func (p *Person) GetAdress() *addressEntity.Address {
-	return &p.address
+func (p *Person) GetId() string {
+	return p.ID
 }
 
 func (p *Person) GetName() string {
@@ -31,12 +31,16 @@ func (p *Person) GetCpf() string {
 	return p.cpf
 }
 
-func (p *Person) BirthdayIsgreaterThan(birthday string) bool {
-	return p.birthday > birthday
+func (p *Person) GetAdress() *addressEntity.Address {
+	return p.address
+}
+
+func (p *Person) BirthdayIsgreaterThan(birthday time.Time) bool {
+	return p.birthday.GoString() > birthday.GoString()
 }
 
 func (p *Person) changeAdress(adress *addressEntity.Address) {
-	p.address = *adress
+	p.address = adress
 }
 
 func (p *Person) AdoptAnimal(animal *animalEntity.Animal) {
@@ -55,12 +59,7 @@ func (p *Person) DonateAnimal(animalToRemove *animalEntity.Animal) error {
 }
 
 func (p *Person) isChild() (bool, error) {
-	dateBirthday, err := time.Parse("2006-01-02", p.birthday)
-
-	if err != nil {
-		return false, err
-	}
-	diff := dateBirthday.Sub(time.Now())
+	diff := p.birthday.Sub(time.Now())
 	years := math.Abs(float64(diff.Hours() / 24 / 365))
 
 	if years < 12 {
@@ -71,12 +70,7 @@ func (p *Person) isChild() (bool, error) {
 }
 
 func (p *Person) isTeen() (bool, error) {
-	dateBirthday, err := time.Parse("2006-01-02", p.birthday)
-
-	if err != nil {
-		return false, err
-	}
-	diff := dateBirthday.Sub(time.Now())
+	diff := p.birthday.Sub(time.Now())
 	years := math.Abs(float64(diff.Hours() / 24 / 365))
 
 	if years >= 12 && years < 18 {
@@ -87,12 +81,7 @@ func (p *Person) isTeen() (bool, error) {
 }
 
 func (p *Person) isAdult() (bool, error) {
-	dateBirthday, err := time.Parse("2006-01-02", p.birthday)
-
-	if err != nil {
-		return false, err
-	}
-	diff := dateBirthday.Sub(time.Now())
+	diff := p.birthday.Sub(time.Now())
 	years := math.Abs(float64(diff.Hours() / 24 / 365))
 
 	if years >= 18 {
@@ -109,7 +98,7 @@ func (p *Person) GetJson() ([]byte, error) {
 		Birthday: p.birthday,
 		Genre:    p.genre,
 		Cpf:      p.cpf,
-		Address:  p.address,
+		Address:  *p.address,
 	}
 	return json.Marshal(PersonDTO)
 }
