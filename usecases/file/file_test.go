@@ -4,14 +4,28 @@ import (
 	"encoding/json"
 	personEntity "projetoGo/entity/person"
 	"testing"
+	"time"
 )
 
 func TestWriteData(t *testing.T) {
 	people := []personEntity.PersonDTO{}
-	people = append(people, *personEntity.NewPersonBuilder("William", "436.377.998-55").WithBirthday("26/01/2000").WithGenre("Masculino").BuildDto())
-	people = append(people, *personEntity.NewPersonBuilder("Duda", "436.377.998-50").WithBirthday("24/10/2005").WithGenre("Feminino").BuildDto())
-	people = append(people, *personEntity.NewPersonBuilder("Ana", "436.377.998-51").WithBirthday("20/10/2013").WithGenre("Feminino").BuildDto())
-	people = append(people, *personEntity.NewPersonBuilder("Nicolas", "436.377.998-52").WithBirthday("08/10/2004").WithGenre("Masculino").BuildDto())
+	t1 := time.Date(2000, time.January, 26, 0, 0, 0, 0, time.UTC)
+	t2 := time.Date(2005, time.October, 24, 0, 0, 0, 0, time.UTC)
+	t3 := time.Date(2013, time.October, 20, 0, 0, 0, 0, time.UTC)
+	t4 := time.Date(2005, time.October, 8, 0, 0, 0, 0, time.UTC)
+
+	People := []personEntity.Person{}
+	person, _ := personEntity.NewPersonBuilder("William", "436.377.998-55").WithBirthday(t1).WithGenre("Masculino").Build()
+	People = append(People, *person)
+
+	person, _ = personEntity.NewPersonBuilder("Duda", "436.377.998-50").WithBirthday(t2).WithGenre("Feminino").Build()
+	People = append(People, *person)
+
+	person, _ = personEntity.NewPersonBuilder("Ana", "436.377.998-51").WithBirthday(t3).WithGenre("Feminino").Build()
+	People = append(People, *person)
+
+	person, _ = personEntity.NewPersonBuilder("Nicolas", "436.377.998-52").WithBirthday(t4).WithGenre("Masculino").Build()
+	People = append(People, *person)
 
 	// Obj to json
 	dataJson, _ := json.Marshal(people)
