@@ -1,0 +1,4 @@
+GET http://localhost:8080/person/all
+
+
+POST http://localhost:8080/deletePerson?name=William

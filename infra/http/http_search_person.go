@@ -5,12 +5,21 @@ import (
 	"net/http"
 	personEntity "projetoGo/entity/person"
 	personRepository "projetoGo/infra/repository/person-repository"
+	"strings"
 )
 
 func SearchAllPerson(w http.ResponseWriter, r *http.Request) {
-	person := personRepository.FindAll()
+	people := personRepository.FindAll()
 
-	fmt.Fprintf(w, "%v - %v", person, r.URL.User.Username())
+	if len(people) == 0 {
+		people = append(people, personEntity.Person{})
+	}
+
+	err := modelos.ExecuteTemplate(w, "index.html", people)
+
+	if err != nil {
+		http.Error(w, "Erro ao carregar template", http.StatusInternalServerError)
+	}
 }
 
 func SearchPerson(w http.ResponseWriter, r *http.Request) {
@@ -32,8 +41,13 @@ func SearchPerson(w http.ResponseWriter, r *http.Request) {
 		person, err = personRepository.FindByCpf(cpf)
 	}
 
-	if err != nil {
+	if err != nil && !strings.Contains(err.Error(), "not found") {
 		fmt.Fprintf(w, "Erro: %v", err)
 	}
-	fmt.Fprintf(w, "%v", person)
+
+	err = modelos.ExecuteTemplate(w, "index.html", []personEntity.Person{person})
+
+	if err != nil {
+		http.Error(w, "Erro ao carregar template", http.StatusInternalServerError)
+	}
 }

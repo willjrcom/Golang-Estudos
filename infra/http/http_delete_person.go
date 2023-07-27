@@ -16,7 +16,8 @@ func DeletePerson(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Fprintf(w, "Erro delete: %v", err)
+		return
 	}
 
-	fmt.Fprintf(w, "Delete 200")
+	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
