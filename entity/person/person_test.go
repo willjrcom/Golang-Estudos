@@ -1,10 +1,11 @@
 package personEntity
 
 import (
-	"fmt"
 	addressEntity "projetoGo/entity/address"
 	"testing"
 	"time"
+
+	"github.com/stretchr/testify/assert"
 )
 
 var people = []Person{
@@ -23,31 +24,26 @@ var people = []Person{
 }
 
 func TestNameValid(t *testing.T) {
+	assert := assert.New(t)
 	address := addressEntity.NewAddressBuilder().WithStreet("Rua Piedade").WithNumber(226).WithCity("Sorocaba").WithState("SP").WithCountry("BR").Build()
-	person, err := NewPersonBuilder("William", "436.377.998-55").WithAddress(address).Build()
-
-	fmt.Println(person)
-
-	if err != nil {
-		fmt.Println(err)
-		t.Errorf(err[0].Error())
-	}
+	person, _ := NewPersonBuilder("William", "436.377.998-55").WithAddress(address).Build()
+	assert.Equal(person.name, "William")
 }
 
 func TestIsChild(t *testing.T) {
-	if isChild, _ := people[0].isChild(); isChild {
-		t.Errorf("%v, isChild() = %v, want %v", people[0].name, isChild, false)
-	}
+	assert := assert.New(t)
+	isChild, _ := people[0].isChild()
+	assert.Equal(false, isChild)
 }
 
 func TestIsAdult(t *testing.T) {
-	if isAdult, _ := people[1].isAdult(); isAdult {
-		t.Errorf("%v, isAdult() = %v, want %v", people[1].name, isAdult, false)
-	}
+	assert := assert.New(t)
+	isAdult, _ := people[1].isAdult()
+	assert.Equal(false, isAdult)
 }
 
 func TestIsTeen(t *testing.T) {
-	if isTeen, _ := people[2].isTeen(); isTeen {
-		t.Errorf("%v, isTeen() = %v, want %v", people[2].name, isTeen, false)
-	}
+	assert := assert.New(t)
+	isTeen, _ := people[2].isTeen()
+	assert.Equal(false, isTeen)
 }

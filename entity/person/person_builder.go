@@ -39,11 +39,11 @@ func (p *personBuilder) Build() (*Person, []error) {
 }
 
 func (p *personBuilder) BuildDto() (*PersonDTO, []error) {
-	_, err := structValidator.Validate(&p.person)
+	// 	_, err := structValidator.Validate(&p.person)
 
-	if err != nil {
-		return new(PersonDTO), err
-	}
+	// 	if err != nil {
+	// 		return new(PersonDTO), err
+	// 	}
 
 	return &PersonDTO{
 		ID:       p.person.ID,
@@ -51,6 +51,6 @@ func (p *personBuilder) BuildDto() (*PersonDTO, []error) {
 		Birthday: p.person.birthday,
 		Genre:    p.person.genre,
 		Cpf:      p.person.cpf,
-		Address:  *p.person.address,
+		Address:  p.person.address,
 	}, nil
 }

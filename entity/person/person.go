@@ -98,7 +98,7 @@ func (p *Person) GetJson() ([]byte, error) {
 		Birthday: p.birthday,
 		Genre:    p.genre,
 		Cpf:      p.cpf,
-		Address:  *p.address,
+		Address:  p.address,
 	}
 	return json.Marshal(PersonDTO)
 }
