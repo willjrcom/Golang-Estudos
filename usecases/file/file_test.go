@@ -2,6 +2,7 @@ package fileManager
 
 import (
 	"encoding/json"
+	"fmt"
 	personEntity "projetoGo/entity/person"
 	"testing"
 	"time"
@@ -14,21 +15,21 @@ func TestWriteData(t *testing.T) {
 	t3 := time.Date(2013, time.October, 20, 0, 0, 0, 0, time.UTC)
 	t4 := time.Date(2005, time.October, 8, 0, 0, 0, 0, time.UTC)
 
-	People := []personEntity.Person{}
-	person, _ := personEntity.NewPersonBuilder("William", "436.377.998-55").WithBirthday(t1).WithGenre("Masculino").Build()
-	People = append(People, *person)
+	person, _ := personEntity.NewPersonBuilder("William", "436.377.998-55").WithBirthday(t1).WithGenre("Masculino").BuildDto()
+	people = append(people, *person)
 
-	person, _ = personEntity.NewPersonBuilder("Duda", "436.377.998-50").WithBirthday(t2).WithGenre("Feminino").Build()
-	People = append(People, *person)
+	person, _ = personEntity.NewPersonBuilder("Duda", "436.377.998-50").WithBirthday(t2).WithGenre("Feminino").BuildDto()
+	people = append(people, *person)
 
-	person, _ = personEntity.NewPersonBuilder("Ana", "436.377.998-51").WithBirthday(t3).WithGenre("Feminino").Build()
-	People = append(People, *person)
+	person, _ = personEntity.NewPersonBuilder("Ana", "436.377.998-51").WithBirthday(t3).WithGenre("Feminino").BuildDto()
+	people = append(people, *person)
 
-	person, _ = personEntity.NewPersonBuilder("Nicolas", "436.377.998-52").WithBirthday(t4).WithGenre("Masculino").Build()
-	People = append(People, *person)
+	person, _ = personEntity.NewPersonBuilder("Nicolas", "436.377.998-52").WithBirthday(t4).WithGenre("Masculino").BuildDto()
+	people = append(people, *person)
 
 	// Obj to json
 	dataJson, _ := json.Marshal(people)
+	fmt.Println(dataJson)
 	err := WriteDataFile("people.json", dataJson)
 	if err != nil {
 		t.Errorf(err.Error())
