@@ -2,7 +2,6 @@ package personRepository
 
 import (
 	"errors"
-	"fmt"
 	personEntity "projetoGo/entity/person"
 	"strings"
 	"time"
@@ -36,8 +35,8 @@ func FindAll() []personEntity.Person {
 
 func FindByName(name string) (personEntity.Person, error) {
 	for _, p := range People {
-		fmt.Println(p.GetName() + " == " + name)
-		if strings.ToLower(p.GetName()) == name {
+
+		if strings.ToLower(p.GetName()) == strings.ToLower(name) {
 			return p, nil
 		}
 	}
