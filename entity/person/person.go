@@ -7,10 +7,12 @@ import (
 	addressEntity "projetoGo/entity/address"
 	animalEntity "projetoGo/entity/animal"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type Person struct {
-	ID       string
+	gorm.Model
 	name     string                 `validate:"required,min=5"`
 	birthday time.Time              `validate:"required"`
 	genre    string                 `validate:"required"`
@@ -19,7 +21,7 @@ type Person struct {
 	animals  []*animalEntity.Animal
 }
 
-func (p *Person) GetId() string {
+func (p *Person) GetId() uint {
 	return p.ID
 }
 
@@ -93,7 +95,7 @@ func (p *Person) isAdult() (bool, error) {
 
 func (p *Person) GetJson() ([]byte, error) {
 	PersonDTO := PersonDTO{
-		ID:       p.ID,
+		Model:    p.Model,
 		Name:     p.name,
 		Birthday: p.birthday,
 		Genre:    p.genre,

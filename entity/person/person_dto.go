@@ -4,10 +4,12 @@ import (
 	addressEntity "projetoGo/entity/address"
 	animalEntity "projetoGo/entity/animal"
 	"time"
+
+	"gorm.io/gorm"
 )
 
 type PersonDTO struct {
-	ID       string                 `json:"id"`
+	gorm.Model
 	Name     string                 `json:"name"`
 	Birthday time.Time              `json:"birthday"`
 	Genre    string                 `json:"genre"`

@@ -46,7 +46,7 @@ func (p *personBuilder) BuildDto() (*PersonDTO, []error) {
 	// 	}
 
 	return &PersonDTO{
-		ID:       p.person.ID,
+		Model:    p.person.Model,
 		Name:     p.person.name,
 		Birthday: p.person.birthday,
 		Genre:    p.person.genre,

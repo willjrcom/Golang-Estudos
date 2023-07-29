@@ -1,7 +1,9 @@
 package animalEntity
 
+import "gorm.io/gorm"
+
 type Animal struct {
-	ID          int
+	gorm.Model
 	name        string
 	class       string
 	isDangerous bool
