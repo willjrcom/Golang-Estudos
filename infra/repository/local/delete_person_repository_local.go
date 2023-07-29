@@ -1,4 +1,4 @@
-package personRepository
+package personRepositoryLocal
 
 import (
 	"errors"

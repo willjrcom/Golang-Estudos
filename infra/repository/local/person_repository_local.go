@@ -1,9 +1,7 @@
-package personRepository
+package personRepositoryLocal
 
 import (
-	"errors"
 	personEntity "projetoGo/entity/person"
-	"strings"
 	"time"
 )
 
@@ -27,27 +25,4 @@ func init() {
 
 	person, _ = personEntity.NewPersonBuilder("Nicolas", "436.377.998-52").WithBirthday(t4).WithGenre("Masculino").Build()
 	People = append(People, *person)
-}
-
-func FindAll() []personEntity.Person {
-	return People
-}
-
-func FindByName(name string) (personEntity.Person, error) {
-	for _, p := range People {
-
-		if strings.ToLower(p.GetName()) == strings.ToLower(name) {
-			return p, nil
-		}
-	}
-	return personEntity.Person{}, errors.New("FindByName: person not found")
-}
-
-func FindByCpf(cpf string) (personEntity.Person, error) {
-	for _, p := range People {
-		if p.GetCpf() == cpf {
-			return p, nil
-		}
-	}
-	return personEntity.Person{}, errors.New("GetCpf: person not found")
 }
