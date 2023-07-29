@@ -4,10 +4,19 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"projetoGo/infra/database"
+	personRepositoryGorm "projetoGo/infra/repository/gorm/person-repository"
+	personUsecases "projetoGo/usecases/person"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 )
+
+var Service = personUsecases.Service{
+	Repository: &personRepositoryGorm.PersonRepository{
+		Db: database.NewDb(),
+	},
+}
 
 func InitHttpServer() {
 	r := chi.NewRouter()

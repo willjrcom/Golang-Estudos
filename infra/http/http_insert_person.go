@@ -3,7 +3,6 @@ package httpServer
 import (
 	"net/http"
 	personEntity "projetoGo/entity/person"
-	personRepository "projetoGo/infra/repository/person-repository"
 	"time"
 )
 
@@ -18,7 +17,7 @@ func InsertPerson(w http.ResponseWriter, r *http.Request) {
 
 	person, _ := personEntity.NewPersonBuilder(name, cpf).WithBirthday(date).WithGenre(genre).Build()
 
-	personRepository.InsertPerson(person)
+	Service.RegisterPerson(person)
 
 	http.Redirect(w, r, "/", http.StatusSeeOther)
 }
