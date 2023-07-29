@@ -32,5 +32,5 @@ func (s *Service) RegisterPerson(newPerson *personEntity.Person) {
 
 func (s *Service) DeletePerson(params string) {
 	// !!! Criar regra do where
-	s.Repository.DeleteBy(params, []string{"will"})
+	s.Repository.DeleteBy(params, []interface{}{"william"})
 }
