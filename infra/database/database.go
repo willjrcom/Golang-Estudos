@@ -1,0 +1,26 @@
+package database
+
+import (
+	addressEntity "projetoGo/entity/address"
+	personEntity "projetoGo/entity/person"
+
+	"gorm.io/driver/sqlite"
+	"gorm.io/gorm"
+)
+
+func NewDb() *gorm.DB {
+	db, err := gorm.Open(sqlite.Open("gorm.db"), &gorm.Config{})
+
+	if err != nil {
+		panic("Falha ao conectar ao banco de dados: " + err.Error())
+	}
+
+	// Executar migração para criar a tabela de pessoas
+	err = db.AutoMigrate(&personEntity.Person{}, &addressEntity.Address{})
+
+	if err != nil {
+		panic("Falha ao executar migração: " + err.Error())
+	}
+
+	return db
+}
