@@ -2,7 +2,6 @@ package structValidator
 
 import (
 	"errors"
-	"fmt"
 	"regexp"
 
 	"github.com/go-playground/validator"
@@ -22,9 +21,8 @@ func Validate[T interface{}](obj *T) (*T, []error) {
 
 	validationErrors := err.(validator.ValidationErrors)
 	errs := make([]error, len(validationErrors))
-	fmt.Println(len(validationErrors))
+
 	for index, err := range validationErrors {
-		fmt.Println(err.Tag())
 		switch err.Tag() {
 		case "required":
 			errs[index] = errors.New("Campo: " + err.Field() + " é obrigatório!")
@@ -37,7 +35,6 @@ func Validate[T interface{}](obj *T) (*T, []error) {
 		}
 	}
 
-	fmt.Println(errs)
 	return new(T), errs
 }
 

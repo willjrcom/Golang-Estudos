@@ -2,7 +2,6 @@ package fileManager
 
 import (
 	"encoding/json"
-	"fmt"
 	personEntity "projetoGo/entity/person"
 	"testing"
 	"time"
@@ -29,7 +28,7 @@ func TestWriteData(t *testing.T) {
 
 	// Obj to json
 	dataJson, _ := json.Marshal(people)
-	fmt.Println(dataJson)
+
 	err := WriteDataFile("people.json", dataJson)
 	if err != nil {
 		t.Errorf(err.Error())
