@@ -2,7 +2,7 @@ package httpServer
 
 import (
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"projetoGo/infra/database"
 	personRepositoryGorm "projetoGo/infra/repository/gorm/person-repository"
@@ -41,7 +41,7 @@ func getServer() {
 	defer response.Body.Close()
 
 	if response.StatusCode == 200 {
-		body, err := ioutil.ReadAll(response.Body)
+		body, err := io.ReadAll(response.Body)
 
 		if err != nil {
 			fmt.Println(err.Error())

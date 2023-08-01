@@ -5,5 +5,5 @@ import (
 )
 
 func (pr *PersonRepository) Save(person *personEntity.Person) error {
-	return pr.Db.Save(&person).Error
+	return pr.Db.Save(*person).Error
 }

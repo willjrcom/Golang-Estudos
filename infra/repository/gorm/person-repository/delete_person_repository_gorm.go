@@ -9,9 +9,9 @@ func (pr *PersonRepository) Delete(obj *personEntity.Person) error {
 }
 
 func (pr *PersonRepository) DeleteBy(conditions string, values []interface{}) error {
-	return pr.Db.Where(conditions, values...).Delete(&personEntity.Person{}).Error
+	return pr.Db.Where(conditions, values...).Select("address").Select("animals").Delete(&personEntity.Person{}).Error
 }
 
 func (pr *PersonRepository) DeleteById(id uint) error {
-	return pr.Db.Where("ID = ?", id).Delete(&personEntity.Person{}).Error
+	return pr.Db.Where("ID = ?", id).Select("address").Select("animals").Delete(&personEntity.Person{}).Error
 }

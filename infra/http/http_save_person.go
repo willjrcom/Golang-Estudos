@@ -4,11 +4,9 @@ import (
 	"net/http"
 )
 
-func DeletePerson(w http.ResponseWriter, r *http.Request) {
-	//params := r.URL.Query()
-
+func InsertPerson(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
-	err := Service.DeletePerson(r.Form)
+	err := Service.RegisterPerson(r.Form)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)

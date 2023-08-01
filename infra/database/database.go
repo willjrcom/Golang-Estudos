@@ -2,6 +2,7 @@ package database
 
 import (
 	addressEntity "projetoGo/entity/address"
+	animalEntity "projetoGo/entity/animal"
 	personEntity "projetoGo/entity/person"
 
 	"gorm.io/driver/sqlite"
@@ -16,11 +17,19 @@ func NewDb() *gorm.DB {
 	}
 
 	// Executar migração para criar a tabela de pessoas
-	err = db.AutoMigrate(&personEntity.Person{}, &addressEntity.Address{})
-
+	err = db.AutoMigrate(&personEntity.Person{}, &addressEntity.Address{}, &animalEntity.Animal{})
 	if err != nil {
 		panic("Falha ao executar migração: " + err.Error())
 	}
+
+	// people := []*personEntity.Person{}
+	// db.Find(&people)
+
+	// if len(people) != 0 {
+	// 	for _, person := range people {
+	// 		fmt.Println(person)
+	// 	}
+	// }
 
 	return db
 }

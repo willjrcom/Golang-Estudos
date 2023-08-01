@@ -8,13 +8,13 @@ import (
 )
 
 func SearchAllPerson(w http.ResponseWriter, r *http.Request) {
-	people, _ := Service.FindAll()
+	people, err := Service.FindAll()
 
-	if len(people) == 0 {
-		people = append(people, &personEntity.Person{})
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 
-	err := modelos.ExecuteTemplate(w, "index.html", people)
+	err = modelos.ExecuteTemplate(w, "index.html", people)
 
 	if err != nil {
 		http.Error(w, "Erro ao carregar template", http.StatusInternalServerError)
@@ -28,17 +28,13 @@ func SearchPerson(w http.ResponseWriter, r *http.Request) {
 	}
 
 	params := r.URL.Query()
-	fmt.Println(params)
-	person := personEntity.Person{}
-	var err error
-
-	_, err = Service.FindBy()
+	_, err := Service.FindBy(params)
 
 	if err != nil && !strings.Contains(err.Error(), "not found") {
 		fmt.Fprintf(w, "Erro: %v", err)
 	}
 
-	err = modelos.ExecuteTemplate(w, "index.html", []personEntity.Person{person})
+	err = modelos.ExecuteTemplate(w, "index.html", []personEntity.Person{})
 
 	if err != nil {
 		http.Error(w, "Erro ao carregar template", http.StatusInternalServerError)
