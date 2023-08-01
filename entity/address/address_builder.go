@@ -9,25 +9,25 @@ func NewAddressBuilder() *AddressBuilder {
 }
 
 func (b *AddressBuilder) WithStreet(street string) *AddressBuilder {
-	b.address.street = street
+	b.address.Street = street
 	return b
 }
 
 func (b *AddressBuilder) WithNumber(number int) *AddressBuilder {
-	b.address.number = number
+	b.address.Number = number
 	return b
 }
 
 func (b *AddressBuilder) WithCity(city string) *AddressBuilder {
-	b.address.city = city
+	b.address.City = city
 	return b
 }
 func (b *AddressBuilder) WithState(state string) *AddressBuilder {
-	b.address.state = state
+	b.address.State = state
 	return b
 }
 func (b *AddressBuilder) WithCountry(country string) *AddressBuilder {
-	b.address.country = country
+	b.address.Country = country
 	return b
 }
 

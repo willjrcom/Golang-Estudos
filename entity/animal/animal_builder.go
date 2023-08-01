@@ -5,16 +5,16 @@ type AnimalBuilder struct {
 }
 
 func newAnimalBuilder(name, class string) *AnimalBuilder {
-	return &AnimalBuilder{animal: &Animal{name: name, class: class}}
+	return &AnimalBuilder{animal: &Animal{Name: name, Class: class}}
 }
 
 func (a *AnimalBuilder) WithIsDangerous(isDangerous bool) *AnimalBuilder {
-	a.animal.isDangerous = isDangerous
+	a.animal.IsDangerous = isDangerous
 	return a
 }
 
 func (a *AnimalBuilder) WithIsDomestic(isDomestic bool) *AnimalBuilder {
-	a.animal.isDomestic = isDomestic
+	a.animal.IsDomestic = isDomestic
 	return a
 }
 

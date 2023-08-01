@@ -4,9 +4,9 @@ import "gorm.io/gorm"
 
 type Address struct {
 	gorm.Model
-	street  string
-	number  int
-	city    string
-	state   string
-	country string
+	Street  string
+	Number  int
+	City    string
+	State   string
+	Country string
 }

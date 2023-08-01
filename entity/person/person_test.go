@@ -10,16 +10,16 @@ import (
 
 var people = []Person{
 	{
-		name:     "William",
-		birthday: time.Date(2000, time.January, 26, 0, 0, 0, 0, time.UTC),
+		Name:     "William",
+		Birthday: time.Date(2000, time.January, 26, 0, 0, 0, 0, time.UTC),
 	},
 	{
-		name:     "Duda",
-		birthday: time.Date(2005, time.October, 24, 0, 0, 0, 0, time.UTC),
+		Name:     "Duda",
+		Birthday: time.Date(2005, time.October, 24, 0, 0, 0, 0, time.UTC),
 	},
 	{
-		name:     "Ana",
-		birthday: time.Date(2013, time.October, 20, 0, 0, 0, 0, time.UTC),
+		Name:     "Ana",
+		Birthday: time.Date(2013, time.October, 20, 0, 0, 0, 0, time.UTC),
 	},
 }
 
@@ -27,7 +27,7 @@ func TestNameValid(t *testing.T) {
 	assert := assert.New(t)
 	address := addressEntity.NewAddressBuilder().WithStreet("Rua Piedade").WithNumber(226).WithCity("Sorocaba").WithState("SP").WithCountry("BR").Build()
 	person, _ := NewPersonBuilder("William", "436.377.998-55").WithAddress(address).Build()
-	assert.Equal(person.name, "William")
+	assert.Equal(person.Name, "William")
 }
 
 func TestIsChild(t *testing.T) {
