@@ -34,6 +34,11 @@ func (p *personBuilder) WithAddress(address *addressEntity.Address) *personBuild
 	return p
 }
 
+func (p *personBuilder) WithAddressID(addressID uint) *personBuilder {
+	//p.person.AddressID = addressID
+	return p
+}
+
 func (p *personBuilder) Build() (*Person, []error) {
 	return structValidator.Validate(p.person)
 }

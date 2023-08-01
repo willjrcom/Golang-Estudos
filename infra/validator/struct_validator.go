@@ -40,7 +40,7 @@ func Validate[T interface{}](obj *T) (*T, []error) {
 
 func validateCPF(fl validator.FieldLevel) bool {
 	// Expressão regular para validar o formato do CPF (apenas números e 11 dígitos)
-	cpfRegex := regexp.MustCompile(`^\d{11}$`)
+	cpfRegex := regexp.MustCompile(`^\d{1,3}\.\d{1,3}\.\d{1,3}\-\d{2}$`)
 	cpf := fl.Field().String()
 
 	// Verificar o formato do CPF

@@ -5,5 +5,12 @@ import (
 )
 
 func (pr *PersonRepository) Save(person *personEntity.Person) error {
-	return pr.Db.Save(*person).Error
+	err := pr.Db.Save(person.Address).Error
+
+	if err != nil {
+		return err
+	}
+
+	person.AddressID = person.Address.ID
+	return pr.Db.Save(person).Error
 }

@@ -26,8 +26,8 @@ var people = []Person{
 func TestNameValid(t *testing.T) {
 	assert := assert.New(t)
 	address := addressEntity.NewAddressBuilder().WithStreet("Rua Piedade").WithNumber(226).WithCity("Sorocaba").WithState("SP").WithCountry("BR").Build()
-	person, _ := NewPersonBuilder("William", "436.377.998-55").WithAddress(address).Build()
-	assert.Equal(person.Name, "William")
+	person, _ := NewPersonBuilder("William", "436.377.998-55").WithAddress(address).BuildDto()
+	assert.Equal("William", person.Name)
 }
 
 func TestIsChild(t *testing.T) {

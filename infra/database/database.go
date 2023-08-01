@@ -22,14 +22,5 @@ func NewDb() *gorm.DB {
 		panic("Falha ao executar migração: " + err.Error())
 	}
 
-	// people := []*personEntity.Person{}
-	// db.Find(&people)
-
-	// if len(people) != 0 {
-	// 	for _, person := range people {
-	// 		fmt.Println(person)
-	// 	}
-	// }
-
 	return db
 }

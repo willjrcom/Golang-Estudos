@@ -9,4 +9,5 @@ type Address struct {
 	City    string
 	State   string
 	Country string
+	//PersonID uint
 }

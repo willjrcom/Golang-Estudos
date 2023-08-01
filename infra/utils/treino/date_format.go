@@ -1,6 +1,8 @@
 package utils
 
-import "time"
+import (
+	"time"
+)
 
 func StringtoDate(date string) time.Time {
 	layout := "2006-01-01"

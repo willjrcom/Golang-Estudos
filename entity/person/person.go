@@ -18,8 +18,8 @@ type Person struct {
 	Genre     string    `validate:"required"`
 	Cpf       string    `validate:"required,cpf"`
 	AddressID uint
-	Address   *addressEntity.Address `gorm:"foreignkey:AddressID" validate:"required"`
-	Animals   []*animalEntity.Animal
+	Address   *addressEntity.Address `validate:"required" gorm:"constraint:OnUpdate:CASCADE,OnDelete:CASCADE;"`
+	Animals   []*animalEntity.Animal `gorm:"foreignKey:PersonID"`
 }
 
 func (p *Person) GetId() uint {

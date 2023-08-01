@@ -1,4 +1,4 @@
-package personUsecases
+package personService
 
 import (
 	"net/url"
@@ -27,10 +27,13 @@ func (s *Service) FindAll() ([]*personEntity.Person, error) {
 }
 
 func (s *Service) FindBy(values url.Values) ([]*personEntity.Person, error) {
-	mapValues := utils.UrlValuesToMap(values)
-	conditions := utils.MapToGormConditions(mapValues)
-	args := utils.MapKeyToArray(mapValues)
-	return s.Repository.FindBy(conditions, args)
+	person, err := presenter.UrlValuesToPerson(values)
+
+	if err != nil {
+		return []*personEntity.Person{}, err
+	}
+
+	return s.Repository.FindBy(person)
 }
 
 func (s *Service) DeletePerson(values url.Values) error {

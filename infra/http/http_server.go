@@ -6,13 +6,13 @@ import (
 	"net/http"
 	"projetoGo/infra/database"
 	personRepositoryGorm "projetoGo/infra/repository/gorm/person-repository"
-	personUsecases "projetoGo/usecases/person"
+	personService "projetoGo/usecases/person"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 )
 
-var Service = personUsecases.Service{
+var Service = personService.Service{
 	Repository: &personRepositoryGorm.PersonRepository{
 		Db: database.NewDb(),
 	},

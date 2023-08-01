@@ -3,7 +3,6 @@ package httpServer
 import (
 	"fmt"
 	"net/http"
-	personEntity "projetoGo/entity/person"
 	"strings"
 )
 
@@ -22,21 +21,19 @@ func SearchAllPerson(w http.ResponseWriter, r *http.Request) {
 }
 
 func SearchPerson(w http.ResponseWriter, r *http.Request) {
-	if len(r.URL.Query()) == 0 {
-		fmt.Fprintf(w, "Hello World! %v", r.URL.User.Username())
-		return
-	}
-
 	params := r.URL.Query()
-	_, err := Service.FindBy(params)
+	people, err := Service.FindBy(params)
 
 	if err != nil && !strings.Contains(err.Error(), "not found") {
 		fmt.Fprintf(w, "Erro: %v", err)
 	}
-
-	err = modelos.ExecuteTemplate(w, "index.html", []personEntity.Person{})
+	fmt.Fprintf(w, "Resultado:")
+	for _, person := range people {
+		fmt.Fprintf(w, "%v\n", person.Name)
+	}
+	//err = modelos.ExecuteTemplate(w, "index.html", []personEntity.Person{})
 
 	if err != nil {
-		http.Error(w, "Erro ao carregar template", http.StatusInternalServerError)
+		http.Error(w, "\nErro ao carregar template", http.StatusInternalServerError)
 	}
 }
