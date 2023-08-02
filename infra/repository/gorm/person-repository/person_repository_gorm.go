@@ -4,6 +4,10 @@ import (
 	"gorm.io/gorm"
 )
 
-type PersonRepository struct {
+type PersonRepositoryImpl struct {
 	Db *gorm.DB
+}
+
+func NewPersonRepositoryImpl(db *gorm.DB) *PersonRepositoryImpl {
+	return &PersonRepositoryImpl{Db: db}
 }

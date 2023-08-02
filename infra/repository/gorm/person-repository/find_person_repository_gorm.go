@@ -4,7 +4,7 @@ import (
 	personEntity "projetoGo/entity/person"
 )
 
-func (pr *PersonRepository) FindAll() ([]*personEntity.Person, error) {
+func (pr *PersonRepositoryImpl) FindAll() ([]*personEntity.Person, error) {
 	people := []*personEntity.Person{}
 	err := pr.Db.Find(&people).Error
 
@@ -14,29 +14,29 @@ func (pr *PersonRepository) FindAll() ([]*personEntity.Person, error) {
 	return people, nil
 }
 
-func (pr *PersonRepository) FindById(id uint) (*personEntity.Person, error) {
+func (pr *PersonRepositoryImpl) FindById(id uint) (*personEntity.Person, error) {
 	person := personEntity.Person{}
-	tx := pr.Db.Where("id = ?", id).Preload("Address").Preload("Animals").First(&person)
+	err := pr.Db.Where("id = ?", id).Preload("Address").Preload("Animals").First(&person).Error
 
-	if tx != nil {
-		return &personEntity.Person{}, tx.Error
+	if err != nil {
+		return &personEntity.Person{}, err
 	}
 
 	return &person, nil
 }
 
-func (pr *PersonRepository) FindByName(name string) (*personEntity.Person, error) {
-	person := personEntity.Person{}
-	tx := pr.Db.Where("name = ?", name).Preload("Address").Preload("Animals").First(&person)
+func (pr *PersonRepositoryImpl) FindByName(name string) ([]*personEntity.Person, error) {
+	people := []*personEntity.Person{}
+	err := pr.Db.Where("name = ?", name).Preload("Address").Preload("Animals").Find(&people).Error
 
-	if tx != nil {
-		return &personEntity.Person{}, tx.Error
+	if err != nil {
+		return []*personEntity.Person{}, err
 	}
 
-	return &person, nil
+	return people, nil
 }
 
-func (pr *PersonRepository) FindBy(modelConditions *personEntity.Person) ([]*personEntity.Person, error) {
+func (pr *PersonRepositoryImpl) FindBy(modelConditions *personEntity.Person) ([]*personEntity.Person, error) {
 	people := []*personEntity.Person{}
 
 	err := pr.Db.Where(modelConditions).Preload("Address").Preload("Animals").Find(&people).Error

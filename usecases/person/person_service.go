@@ -5,11 +5,18 @@ import (
 	personEntity "projetoGo/entity/person"
 	repositoryInterface "projetoGo/entity/repository"
 	"projetoGo/infra/presenter"
-	utils "projetoGo/infra/utils/treino"
 )
 
 type Service struct {
 	Repository repositoryInterface.Repository[personEntity.Person]
+}
+
+func NewService(repository repositoryInterface.Repository[personEntity.Person]) *Service {
+	return &Service{Repository: repository}
+}
+
+func (s *Service) FindAll() ([]*personEntity.Person, error) {
+	return s.Repository.FindAll()
 }
 
 func (s *Service) RegisterPerson(values url.Values) error {
@@ -20,10 +27,6 @@ func (s *Service) RegisterPerson(values url.Values) error {
 	}
 
 	return s.Repository.Save(person)
-}
-
-func (s *Service) FindAll() ([]*personEntity.Person, error) {
-	return s.Repository.FindAll()
 }
 
 func (s *Service) FindBy(values url.Values) ([]*personEntity.Person, error) {
@@ -37,8 +40,11 @@ func (s *Service) FindBy(values url.Values) ([]*personEntity.Person, error) {
 }
 
 func (s *Service) DeletePerson(values url.Values) error {
-	mapValues := utils.UrlValuesToMap(values)
-	conditions := utils.MapToGormConditions(mapValues)
-	args := utils.MapKeyToArray(mapValues)
-	return s.Repository.DeleteBy(conditions, args)
+	person, err := presenter.UrlValuesToPerson(values)
+
+	if err != nil {
+		return err
+	}
+
+	return s.Repository.DeleteBy(person)
 }

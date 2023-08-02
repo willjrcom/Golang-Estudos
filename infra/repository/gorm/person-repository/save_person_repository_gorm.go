@@ -4,7 +4,7 @@ import (
 	personEntity "projetoGo/entity/person"
 )
 
-func (pr *PersonRepository) Save(person *personEntity.Person) error {
+func (pr *PersonRepositoryImpl) Save(person *personEntity.Person) error {
 	err := pr.Db.Save(person.Address).Error
 
 	if err != nil {

@@ -12,11 +12,7 @@ import (
 	"github.com/go-chi/chi/v5"
 )
 
-var Service = personService.Service{
-	Repository: &personRepositoryGorm.PersonRepository{
-		Db: database.NewDb(),
-	},
-}
+var Service = personService.NewService(personRepositoryGorm.NewPersonRepositoryImpl(database.NewDb()))
 
 func InitHttpServer() {
 	r := chi.NewRouter()

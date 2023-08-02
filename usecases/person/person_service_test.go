@@ -13,7 +13,7 @@ func TestRegisterPerson(t *testing.T) {
 	assert := assert.New(t)
 
 	var Service = Service{
-		Repository: &personRepositoryGorm.PersonRepository{
+		Repository: &personRepositoryGorm.PersonRepositoryImpl{
 			Db: database.NewDb(),
 		},
 	}

@@ -6,6 +6,6 @@ type Repository[T interface{}] interface {
 	FindById(id uint) (*T, error)
 	FindAll() ([]*T, error)
 	Delete(obj *T) error
-	DeleteBy(nameField string, value []interface{}) error
+	DeleteBy(obj *T) error
 	DeleteById(id uint) error
 }
