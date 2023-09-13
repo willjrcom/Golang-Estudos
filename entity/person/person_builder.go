@@ -40,7 +40,13 @@ func (p *personBuilder) WithAddressID(addressID uint) *personBuilder {
 }
 
 func (p *personBuilder) Build() (*Person, []error) {
-	return structValidator.Validate(p.person)
+	err := structValidator.Validate(p.person)
+
+	if err != nil {
+		return new(Person), err
+	}
+
+	return p.person, nil
 }
 
 func (p *personBuilder) BuildDto() (*PersonDTO, []error) {

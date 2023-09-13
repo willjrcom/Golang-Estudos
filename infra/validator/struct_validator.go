@@ -7,7 +7,7 @@ import (
 	"github.com/go-playground/validator"
 )
 
-func Validate[T interface{}](obj *T) (*T, []error) {
+func Validate[T interface{}](obj *T) []error {
 	validate := validator.New()
 
 	// Custom validate
@@ -16,7 +16,7 @@ func Validate[T interface{}](obj *T) (*T, []error) {
 	err := validate.Struct(obj)
 
 	if err == nil {
-		return obj, nil
+		return nil
 	}
 
 	validationErrors := err.(validator.ValidationErrors)
@@ -35,7 +35,7 @@ func Validate[T interface{}](obj *T) (*T, []error) {
 		}
 	}
 
-	return new(T), errs
+	return errs
 }
 
 func validateCPF(fl validator.FieldLevel) bool {

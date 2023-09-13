@@ -6,6 +6,7 @@ import (
 	addressEntity "projetoGo/entity/address"
 	personEntity "projetoGo/entity/person"
 	utils "projetoGo/infra/utils/treino"
+	structValidator "projetoGo/infra/validator"
 )
 
 func UrlValuesToPerson(values url.Values) (*personEntity.Person, error) {
@@ -21,6 +22,12 @@ func UrlValuesToPerson(values url.Values) (*personEntity.Person, error) {
 		Address:  address,
 		Birthday: utils.StringtoDate(values.Get("birthday")),
 		Genre:    values.Get("genre"),
+	}
+
+	err := structValidator.Validate[personEntity.Person](person)
+
+	if err != nil {
+		return nil, err[0]
 	}
 
 	return person, nil
